@@ -5,7 +5,10 @@ export function useFetch(url) {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    axios.get(url).then(res => setData(res.data));
+    (async function getData() {
+      const res = await axios.get(url);
+      setData(res.data);
+    })();
   }, []);
 
   return { data };
