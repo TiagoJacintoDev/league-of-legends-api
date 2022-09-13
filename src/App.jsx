@@ -6,7 +6,7 @@ function App() {
   );
   return (
     <>
-      <h1>{isFetching && 'Loading...'}</h1>
+      {isFetching && <h1>Loading...</h1>}
       {players?.map(player => (
         <>
           <p>Player Name: {player.summonerName}</p>
