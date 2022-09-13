@@ -1,17 +1,16 @@
+import axios from 'axios';
 import { useEffect, useState } from 'react';
 
 function App() {
-  const [data, setData] = useState();
+  const [data, setData] = useState([]);
 
   useEffect(() => {
-    fetch(
-      'https://euw1.api.riotgames.com/lol/league/v4/entries/RANKED_SOLO_5x5/DIAMOND/I?page=1&api_key=RGAPI-c7de2433-a44f-4297-97e7-def4301180e3'
-    )
-      .then(res => res.json())
-      .then(data => setData(data));
+    axios
+      .get(
+        'https://euw1.api.riotgames.com/lol/league/v4/entries/RANKED_SOLO_5x5/DIAMOND/I?page=1&api_key=RGAPI-c7de2433-a44f-4297-97e7-def4301180e3'
+      )
+      .then(res => setData(res.data));
   }, []);
-
-  console.log(data);
 
   return (
     <>
