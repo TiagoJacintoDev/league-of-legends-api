@@ -1,6 +1,8 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 
+const api = axios.create({ baseURL: 'https://euw1.api.riotgames.com' });
+
 export function useFetch(url) {
   const [data, setData] = useState([]);
   const [isFetching, setIsFetching] = useState(true);
@@ -9,7 +11,7 @@ export function useFetch(url) {
   useEffect(() => {
     (async function getData() {
       try {
-        const res = await axios.get(url);
+        const res = await api.get(url);
         setData(res.data);
       } catch (error) {
         setError(error.message);
