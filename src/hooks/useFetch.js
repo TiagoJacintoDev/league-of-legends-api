@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 
 const api = axios.create({ baseURL: 'https://euw1.api.riotgames.com' });
 
-export function useFetch(url) {
+export function useFetch(url, queryOptions) {
   const [data, setData] = useState([]);
   const [isFetching, setIsFetching] = useState(true);
   const [error, setError] = useState(null);
@@ -19,7 +19,7 @@ export function useFetch(url) {
         setIsFetching(false);
       }
     })();
-  }, []);
+  }, [queryOptions?.division, queryOptions?.tier, queryOptions?.queue]);
 
   return { data, isFetching, error };
 }
