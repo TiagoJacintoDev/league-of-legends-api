@@ -19,7 +19,7 @@ export function useFetch(url, queryOptions) {
         setIsFetching(false);
       }
     })();
-  }, [queryOptions?.division, queryOptions?.tier, queryOptions?.queue]);
+  }, [queryOptions]);
 
   return { data, isFetching, error };
 }

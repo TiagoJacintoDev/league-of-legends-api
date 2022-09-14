@@ -7,9 +7,11 @@ export default function Form({ setQueryOptions }) {
   }
 
   function changeOrder(e) {
+    const valueSplit = e.target.value.split('_');
     setQueryOptions(lastQueryOptions => ({
       ...lastQueryOptions,
-      order: e.target.value,
+      order: valueSplit[0],
+      stats: valueSplit[1],
     }));
   }
 

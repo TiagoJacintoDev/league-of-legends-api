@@ -1,16 +1,17 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Form from './components/form';
 import { useFetch } from './hooks/useFetch';
 
-function App() {
+export default function App() {
   const [queryOptions, setQueryOptions] = useState({
     division: 'I',
     tier: 'DIAMOND',
     queue: 'RANKED_SOLO_5x5',
-    order: 'ascending_points',
+    order: 'ascending',
+    stats: 'points',
   });
 
-  const { division, tier, queue, order } = queryOptions;
+  const { division, tier, queue, order, stats } = queryOptions;
 
   const {
     data: players,
@@ -21,14 +22,9 @@ function App() {
     queryOptions
   );
 
-  const selectedValue = order.split('_');
-  const selectedOrder = selectedValue[0];
-  const selectedKey = selectedValue[1];
-
-  const sortedPlayers =
-    selectedOrder === 'ascending'
-      ? players?.sort((a, b) => a[selectedKey] - b[selectedKey])
-      : players?.sort((a, b) => b[selectedKey] - a[selectedKey]);
+  const sortedPlayers = players?.sort((a, b) =>
+    order === 'ascending' ? a[stats] - b[stats] : b[stats] - a[stats]
+  );
 
   return (
     <>
@@ -37,18 +33,16 @@ function App() {
       {isFetching && <h1>Loading...</h1>}
       {sortedPlayers?.map(player => (
         <>
-          <p>Player Name: {player?.summonerName}</p>
+          <p>Player Name: {player.summonerName}</p>
           <p>
-            Tier: {player?.tier} {player?.rank}
+            Tier: {player.tier} {player.rank}
           </p>
-          <p>Points: {player?.leaguePoints}</p>
-          <p>Wins: {player?.wins}</p>
-          <p>Losses: {player?.losses}</p>
+          <p>Points: {player.leaguePoints}</p>
+          <p>Wins: {player.wins}</p>
+          <p>Losses: {player.losses}</p>
           <br />
         </>
       ))}
     </>
   );
 }
-
-export default App;
