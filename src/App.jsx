@@ -2,7 +2,7 @@ import { useState } from 'react';
 import Form from './components/form';
 import { useFetch } from './hooks/useFetch';
 
-export default function App() {
+export default function App({ API_KEY }) {
   const [queryOptions, setQueryOptions] = useState({
     division: 'I',
     tier: 'DIAMOND',
@@ -10,7 +10,6 @@ export default function App() {
     order: 'ascending',
     stats: 'points',
   });
-
   const { division, tier, queue, order, stats } = queryOptions;
 
   const {
@@ -18,7 +17,7 @@ export default function App() {
     isFetching,
     error,
   } = useFetch(
-    `lol/league/v4/entries/${queue}/${tier}/${division}?page=1&api_key=RGAPI-c7de2433-a44f-4297-97e7-def4301180e3`,
+    `lol/league/v4/entries/${queue}/${tier}/${division}?page=1&api_key=${API_KEY}`,
     queryOptions
   );
 
